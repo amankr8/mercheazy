@@ -24,11 +24,11 @@ services:
       - service-registry
       - postgres-db
     environment:
-      SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/mercheazy
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
+      - spring.profiles.active=prod
+      - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
+      - spring.datasource.username=postgres
+      - spring.datasource.password=postgres
+      - eureka.client.service-url.defaultZone=http://service-registry:8761/eureka/
 
   user-service:
     container_name: user_service
@@ -39,11 +39,11 @@ services:
       - service-registry
       - postgres-db
     environment:
-      SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/mercheazy
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
+      - spring.profiles.active=prod
+      - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
+      - spring.datasource.username=postgres
+      - spring.datasource.password=postgres
+      - eureka.client.service-url.defaultZone=http://service-registry:8761/eureka/
 
   store-service:
     container_name: store_service
@@ -54,11 +54,11 @@ services:
       - service-registry
       - postgres-db
     environment:
-      SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/mercheazy
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
+      - spring.profiles.active=prod
+      - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
+      - spring.datasource.username=postgres
+      - spring.datasource.password=postgres
+      - eureka.client.service-url.defaultZone=http://service-registry:8761/eureka/
 
   product-service:
     container_name: product_service
@@ -69,11 +69,11 @@ services:
       - service-registry
       - postgres-db
     environment:
-      SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/mercheazy
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
+      - spring.profiles.active=prod
+      - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
+      - spring.datasource.username=postgres
+      - spring.datasource.password=postgres
+      - eureka.client.service-url.defaultZone=http://service-registry:8761/eureka/
 
   order-service:
     container_name: order_service
@@ -84,11 +84,11 @@ services:
       - service-registry
       - postgres-db
     environment:
-      SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/mercheazy
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
+      - spring.profiles.active=prod
+      - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
+      - spring.datasource.username=postgres
+      - spring.datasource.password=postgres
+      - eureka.client.service-url.defaultZone=http://service-registry:8761/eureka/
 
   cart-service:
     container_name: cart_service
@@ -99,11 +99,11 @@ services:
       - service-registry
       - postgres-db
     environment:
-      SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/mercheazy
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
+      - spring.profiles.active=prod
+      - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
+      - spring.datasource.username=postgres
+      - spring.datasource.password=postgres
+      - eureka.client.service-url.defaultZone=http://service-registry:8761/eureka/
 
   cloudinary-service:
     container_name: cloudinary_service
@@ -114,11 +114,11 @@ services:
       - service-registry
       - postgres-db
     environment:
-      SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/mercheazy
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
+      - spring.profiles.active=prod
+      - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
+      - spring.datasource.username=postgres
+      - spring.datasource.password=postgres
+      - eureka.client.service-url.defaultZone=http://service-registry:8761/eureka/
 
   postgres-db:
     image: 'postgres:17'
@@ -126,6 +126,15 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: mercheazy
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=mercheazy
+
+  elasticsearch:
+    image: 'docker.elastic.co/elasticsearch/elasticsearch:7.17.13'
+    container_name: elasticsearch
+    ports:
+      - "9200:9200"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
