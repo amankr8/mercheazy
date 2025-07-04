@@ -2,6 +2,7 @@
 **/target/
 **/logs/
 .idea/
+.vscode/
 *.iml
 *.log
 
