@@ -12,6 +12,8 @@ services:
       - "8080:8080"
     depends_on:
       - service-registry
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
 
   auth-service:
     container_name: auth_service
@@ -26,6 +28,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://mercheazy_db:5432/mercheazy
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
 
   product-service:
     container_name: product_service
@@ -40,6 +43,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://mercheazy_db:5432/mercheazy
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
 
   order-service:
     container_name: order_service
@@ -54,6 +58,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://mercheazy_db:5432/mercheazy
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
 
   user-service:
     container_name: user_service
@@ -68,6 +73,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://mercheazy_db:5432/mercheazy
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
 
   db:
     image: 'postgres:17'
