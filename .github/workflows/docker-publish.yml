@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         service:
-          - eureka-server
+          - service-registry
           - api-gateway
           - auth-service
           - user-service
