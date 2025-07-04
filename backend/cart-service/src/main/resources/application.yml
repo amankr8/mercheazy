@@ -1,9 +1,9 @@
 server:
-  port: 8085
+  port: 8086
 
 spring:
   application:
-    name: order-service
+    name: cart-service
 
   datasource:
     url: jdbc:postgresql://localhost:5432/mercheazy

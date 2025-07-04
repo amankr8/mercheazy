@@ -30,11 +30,41 @@ services:
       SPRING_DATASOURCE_PASSWORD: postgres
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
 
+  user-service:
+    container_name: user_service
+    build: ./backend/user-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - service-registry
+      - postgres-db
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/mercheazy
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
+
+  store-service:
+    container_name: store_service
+    build: ./backend/store-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - service-registry
+      - postgres-db
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/mercheazy
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
+
   product-service:
     container_name: product_service
     build: ./backend/product-service
     ports:
-      - "8082:8082"
+      - "8084:8084"
     depends_on:
       - service-registry
       - postgres-db
@@ -49,7 +79,7 @@ services:
     container_name: order_service
     build: ./backend/order-service
     ports:
-      - "8083:8083"
+      - "8085:8085"
     depends_on:
       - service-registry
       - postgres-db
@@ -60,11 +90,26 @@ services:
       SPRING_DATASOURCE_PASSWORD: postgres
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
 
-  user-service:
-    container_name: user_service
-    build: ./backend/user-service
+  cart-service:
+    container_name: cart_service
+    build: ./backend/cart-service
     ports:
-      - "8084:8084"
+      - "8086:8086"
+    depends_on:
+      - service-registry
+      - postgres-db
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/mercheazy
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
+
+  cloudinary-service:
+    container_name: cloudinary_service
+    build: ./backend/cloudinary-service
+    ports:
+      - "8087:8087"
     depends_on:
       - service-registry
       - postgres-db

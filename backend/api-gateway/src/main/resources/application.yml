@@ -18,6 +18,10 @@ spring:
               uri: lb://USER-SERVICE
               predicates:
                 - Path=/api/users/**
+            - id: store-service
+              uri: lb://STORE-SERVICE
+              predicates:
+                - Path=/api/stores/**
             - id: product-service
               uri: lb://PRODUCT-SERVICE
               predicates:
@@ -26,6 +30,14 @@ spring:
               uri: lb://ORDER-SERVICE
               predicates:
                 - Path=/api/orders/**
+            - id: cart-service
+              uri: lb://CART-SERVICE
+              predicates:
+                - Path=/api/carts/**
+            - id: cloudinary-service
+              uri: lb://CLOUDINARY-SERVICE
+              predicates:
+                - Path=/api/cloudinary/**
 
 eureka:
   client:
