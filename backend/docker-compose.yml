@@ -1,10 +1,12 @@
 services:
   service-registry:
+    container_name: service_registry
     build: ./service-registry
     ports:
       - "8761:8761"
 
   api-gateway:
+    container_name: api_gateway
     build: ./api-gateway
     ports:
       - "8080:8080"
@@ -12,6 +14,7 @@ services:
       - service-registry
 
   auth-service:
+    container_name: auth_service
     build: ./auth-service
     ports:
       - "8081:8081"
@@ -19,31 +22,52 @@ services:
       - service-registry
       - db
     environment:
-      - SPRING_PROFILES_ACTIVE=prod
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://mercheazy_db:5432/mercheazy
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
 
   product-service:
+    container_name: product_service
     build: ./product-service
     ports:
       - "8082:8082"
     depends_on:
       - service-registry
       - db
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://mercheazy_db:5432/mercheazy
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
 
   order-service:
+    container_name: order_service
     build: ./order-service
     ports:
       - "8083:8083"
     depends_on:
       - service-registry
       - db
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://mercheazy_db:5432/mercheazy
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
 
   user-service:
+    container_name: user_service
     build: ./user-service
     ports:
       - "8084:8084"
     depends_on:
       - service-registry
       - db
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://mercheazy_db:5432/mercheazy
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
 
   db:
     image: 'postgres:17'
@@ -53,4 +77,4 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: mercheazy-db
+      POSTGRES_DB: mercheazy
