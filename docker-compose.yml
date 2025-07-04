@@ -1,13 +1,13 @@
 services:
   service-registry:
     container_name: service_registry
-    build: ./service-registry
+    build: ./backend/service-registry
     ports:
       - "8761:8761"
 
   api-gateway:
     container_name: api_gateway
-    build: ./api-gateway
+    build: ./backend/api-gateway
     ports:
       - "8080:8080"
     depends_on:
@@ -17,7 +17,7 @@ services:
 
   auth-service:
     container_name: auth_service
-    build: ./auth-service
+    build: ./backend/auth-service
     ports:
       - "8081:8081"
     depends_on:
@@ -25,14 +25,14 @@ services:
       - db
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:postgresql://mercheazy_db:5432/mercheazy
+      SPRING_DATASOURCE_URL: jdbc:postgresql://mercheazy-db:5432/mercheazy
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
 
   product-service:
     container_name: product_service
-    build: ./product-service
+    build: ./backend/product-service
     ports:
       - "8082:8082"
     depends_on:
@@ -47,7 +47,7 @@ services:
 
   order-service:
     container_name: order_service
-    build: ./order-service
+    build: ./backend/order-service
     ports:
       - "8083:8083"
     depends_on:
@@ -62,7 +62,7 @@ services:
 
   user-service:
     container_name: user_service
-    build: ./user-service
+    build: ./backend/user-service
     ports:
       - "8084:8084"
     depends_on:
