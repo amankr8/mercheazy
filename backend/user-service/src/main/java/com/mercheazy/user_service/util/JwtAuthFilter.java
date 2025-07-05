@@ -1,7 +1,7 @@
 package com.mercheazy.user_service.util;
 
-import com.mercheazy.order_service.dto.AuthResponseDto;
-import com.mercheazy.order_service.feign.AuthInterface;
+import com.mercheazy.user_service.dto.AuthResponseDto;
+import com.mercheazy.user_service.feign.AuthInterface;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
