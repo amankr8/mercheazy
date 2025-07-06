@@ -19,5 +19,7 @@ spec:
           ports:
             - containerPort: 8082
           env:
+            - name: DB_HOST
+              value: "postgres"
             - name: EUREKA_SERVER_URL
               value: "http://service-registry:8761/eureka"

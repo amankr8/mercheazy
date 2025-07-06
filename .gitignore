@@ -12,6 +12,7 @@ Thumbs.db
 
 # Ignore environment files
 .env
+secrets/
 
 # Ignore coverage reports
 coverage/
