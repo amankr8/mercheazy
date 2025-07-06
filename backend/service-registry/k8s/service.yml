@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: service-registry
 spec:
+  type: LoadBalancer
   selector:
     app: service-registry
   ports:
     - protocol: TCP
       port: 8761
       targetPort: 8761
-  type: NodePort
