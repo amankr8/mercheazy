@@ -18,3 +18,6 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8761
+          env:
+            - name: EUREKA_SERVER_URL
+              value: "http://service-registry:8761/eureka"
