@@ -1,4 +1,10 @@
 services:
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    ports:
+      - "4200:4200"
+
   service-registry:
     container_name: service_registry
     build: ./backend/service-registry
