@@ -13,7 +13,8 @@ spec:
         app: service-registry
     spec:
       containers:
-        - image: flykraft/mercheazy-service-registry:latest
-          name: service-registry
+        - name: service-registry
+          image: flykraft/mercheazy-service-registry:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8761
