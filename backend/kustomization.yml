@@ -1,0 +1,9 @@
+resources:
+  - service-registry/k8s/deployment.yml
+  - service-registry/k8s/service.yml
+  - api-gateway/k8s/deployment.yml
+  - api-gateway/k8s/service.yml
+  - auth-service/k8s/deployment.yml
+  - auth-service/k8s/service.yml
+  - user-service/k8s/deployment.yml
+  - user-service/k8s/service.yml
