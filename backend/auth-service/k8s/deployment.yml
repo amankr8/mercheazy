@@ -17,4 +17,7 @@ spec:
           image: flykraft/mercheazy-auth-service:latest
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8761
+            - containerPort: 8081
+          env:
+            - name: EUREKA_SERVER_URL
+              value: "http://service-registry:8761/eureka"
