@@ -10,34 +10,34 @@ spring:
       server:
         webflux:
           routes:
-            - id: auth-service
-              uri: lb://AUTH-SERVICE
-              predicates:
-                - Path=/api/auth/**
-            - id: user-service
-              uri: lb://USER-SERVICE
-              predicates:
-                - Path=/api/users/**
-            - id: store-service
-              uri: lb://STORE-SERVICE
-              predicates:
-                - Path=/api/stores/**
-            - id: product-service
-              uri: lb://PRODUCT-SERVICE
-              predicates:
-                - Path=/api/products/**
-            - id: order-service
-              uri: lb://ORDER-SERVICE
-              predicates:
-                - Path=/api/orders/**
-            - id: cart-service
-              uri: lb://CART-SERVICE
-              predicates:
-                - Path=/api/carts/**
-            - id: cloudinary-service
-              uri: lb://CLOUDINARY-SERVICE
-              predicates:
-                - Path=/api/cloudinary/**
+          - id: auth-service
+            uri: lb://auth-service
+            predicates:
+              - Path=/api/auth/**
+          - id: user-service
+            uri: lb://user-service
+            predicates:
+              - Path=/api/users/**
+          - id: store-service
+            uri: lb://store-service
+            predicates:
+              - Path=/api/stores/**
+          - id: product-service
+            uri: lb://product-service
+            predicates:
+              - Path=/api/products/**
+          - id: order-service
+            uri: lb://order-service
+            predicates:
+              - Path=/api/orders/**
+          - id: cart-service
+            uri: lb://cart-service
+            predicates:
+              - Path=/api/carts/**
+          - id: cloudinary-service
+            uri: lb://cloudinary-service
+            predicates:
+              - Path=/api/cloudinary/**
 
 eureka:
   client:
