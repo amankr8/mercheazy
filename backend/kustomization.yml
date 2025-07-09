@@ -1,8 +1,6 @@
 resources:
   - postgres/k8s/deployment.yml
   - postgres/k8s/service.yml
-  - service-registry/k8s/deployment.yml
-  - service-registry/k8s/service.yml
   - api-gateway/k8s/deployment.yml
   - api-gateway/k8s/service.yml
   - auth-service/k8s/deployment.yml
