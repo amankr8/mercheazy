@@ -1,0 +1,11 @@
+eureka:
+  client:
+    enabled: false
+
+spring:
+  cloud:
+    kubernetes:
+      discovery:
+        enabled: true
+        service-name: api-gateway
+        all-namespaces: true
