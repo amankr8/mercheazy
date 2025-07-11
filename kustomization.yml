@@ -1,0 +1,10 @@
+resources:
+  - backend/api-gateway/k8s/deployment.yml
+  - backend/api-gateway/k8s/service.yml
+  - backend/auth-service/k8s/deployment.yml
+  - backend/auth-service/k8s/service.yml
+  - backend/auth-service/k8s/secrets/jwt-secret.yml
+  - backend/user-service/k8s/deployment.yml
+  - backend/user-service/k8s/service.yml
+  - frontend/k8s/deployment.yml
+  - frontend/k8s/service.yml

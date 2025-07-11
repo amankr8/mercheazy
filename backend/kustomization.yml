@@ -1,8 +1,0 @@
-resources:
-  - api-gateway/k8s/deployment.yml
-  - api-gateway/k8s/service.yml
-  - auth-service/k8s/deployment.yml
-  - auth-service/k8s/service.yml
-  - auth-service/k8s/secrets/jwt-secret.yml
-  - user-service/k8s/deployment.yml
-  - user-service/k8s/service.yml
