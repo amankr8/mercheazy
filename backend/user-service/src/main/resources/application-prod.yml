@@ -1,10 +1,9 @@
 spring:
   cloud:
     kubernetes:
+      enabled: true
       discovery:
         enabled: true
-        service-name: user-service
-        all-namespaces: true
 
 eureka:
   client:

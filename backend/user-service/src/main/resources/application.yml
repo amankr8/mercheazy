@@ -5,6 +5,9 @@ spring:
   application:
     name: user-service
 
+  profiles:
+    active: dev
+
   datasource:
     url: jdbc:postgresql://${DB_HOST:localhost}:5432/${DB_NAME:mercheazy}
     username: ${DB_USERNAME:postgres}
@@ -18,3 +21,16 @@ spring:
       hibernate:
         format_sql: true
     show-sql: true
+
+  cloud:
+    kubernetes:
+      enabled: false
+      discovery:
+        enabled: false
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka}
