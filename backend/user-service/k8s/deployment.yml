@@ -21,5 +21,5 @@ spec:
           env:
             - name: DB_HOST
               value: "postgres"
-            - name: EUREKA_SERVER_URL
-              value: "http://service-registry:8761/eureka"
+            - name: SPRING_PROFILES_ACTIVE
+              value: "prod"
