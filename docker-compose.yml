@@ -30,7 +30,6 @@ services:
       - service-registry
       - postgres-db
     environment:
-      - spring.profiles.active=prod
       - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
       - spring.datasource.username=postgres
       - spring.datasource.password=postgres
@@ -46,7 +45,6 @@ services:
       - service-registry
       - postgres-db
     environment:
-      - spring.profiles.active=prod
       - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
       - spring.datasource.username=postgres
       - spring.datasource.password=postgres
@@ -61,7 +59,6 @@ services:
       - service-registry
       - postgres-db
     environment:
-      - spring.profiles.active=prod
       - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
       - spring.datasource.username=postgres
       - spring.datasource.password=postgres
@@ -76,7 +73,6 @@ services:
       - service-registry
       - postgres-db
     environment:
-      - spring.profiles.active=prod
       - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
       - spring.datasource.username=postgres
       - spring.datasource.password=postgres
@@ -91,7 +87,6 @@ services:
       - service-registry
       - postgres-db
     environment:
-      - spring.profiles.active=prod
       - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
       - spring.datasource.username=postgres
       - spring.datasource.password=postgres
@@ -106,7 +101,6 @@ services:
       - service-registry
       - postgres-db
     environment:
-      - spring.profiles.active=prod
       - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
       - spring.datasource.username=postgres
       - spring.datasource.password=postgres
@@ -121,7 +115,6 @@ services:
       - service-registry
       - postgres-db
     environment:
-      - spring.profiles.active=prod
       - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
       - spring.datasource.username=postgres
       - spring.datasource.password=postgres
