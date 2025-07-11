@@ -3,8 +3,6 @@ spring:
     kubernetes:
       discovery:
         enabled: true
-        service-name: auth-service
-        all-namespaces: true
 
 eureka:
   client:
