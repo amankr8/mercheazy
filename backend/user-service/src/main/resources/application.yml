@@ -5,9 +5,6 @@ spring:
   application:
     name: user-service
 
-  profiles:
-    active: dev
-
   datasource:
     url: jdbc:postgresql://${DB_HOST:localhost}:5432/${DB_NAME:mercheazy}
     username: ${DB_USERNAME:postgres}
@@ -26,6 +23,8 @@ spring:
     kubernetes:
       enabled: false
       discovery:
+        enabled: false
+      config:
         enabled: false
 
 eureka:
