@@ -4,6 +4,8 @@ spring:
       enabled: true
       discovery:
         enabled: true
+      config:
+        enabled: true
 
 eureka:
   client:
