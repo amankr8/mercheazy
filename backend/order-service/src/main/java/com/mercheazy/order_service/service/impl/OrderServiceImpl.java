@@ -2,8 +2,10 @@ package com.mercheazy.order_service.service.impl;
 
 import com.mercheazy.order_service.dto.OrderItemRequestDto;
 import com.mercheazy.order_service.dto.OrderRequestDto;
+import com.mercheazy.order_service.exception.ResourceNotFoundException;
 import com.mercheazy.order_service.feign.ProductInterface;
 import com.mercheazy.order_service.feign.UserInterface;
+import com.mercheazy.order_service.kafka.OrderProducer;
 import com.mercheazy.order_service.model.*;
 import com.mercheazy.order_service.repository.OrderRepository;
 import com.mercheazy.order_service.service.OrderService;
@@ -21,6 +23,7 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
+    private final OrderProducer orderProducer;
     private final ProductInterface productInterface;
     private final UserInterface userInterface;
 
@@ -29,7 +32,7 @@ public class OrderServiceImpl implements OrderService {
     public Order placeOrder(OrderRequestDto orderRequestDto) {
         ResponseEntity<AppUser> userResponse = userInterface.getUserByEmail(AuthUtil.getUserContext());
         if (!userResponse.getStatusCode().is2xxSuccessful() || userResponse.getBody() == null) {
-            throw new RuntimeException("User could not be found or is not logged in.");
+            throw new ResourceNotFoundException("User could not be found or is not logged in.");
         }
 
         Order order = new Order();
@@ -47,10 +50,15 @@ public class OrderServiceImpl implements OrderService {
                 order.getOrderItems().add(orderItem);
                 productInterface.updateProductStock(item.getProductId(), product.getStock() - item.getQuantity());
             } else {
-                throw new RuntimeException("Product not available or insufficient stock for product ID: " + item.getProductId());
+                throw new ResourceNotFoundException("Product not available or insufficient stock for product ID: " + item.getProductId());
             }
         }
-        return orderRepository.save(order);
+
+        Order savedOrder = orderRepository.save(order);
+
+        orderProducer.publishOrder(savedOrder);
+
+        return savedOrder;
     }
 
     @Override
