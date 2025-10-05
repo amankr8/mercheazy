@@ -1,6 +1,7 @@
 package com.mercheazy.order_service.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.mercheazy.order_service.dto.OrderItemResponseDto;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -27,4 +28,13 @@ public class OrderItem {
     @JoinColumn(name = "oi_order_id", nullable = false)
     @JsonManagedReference
     private Order order;
+
+    public OrderItemResponseDto toDto() {
+        OrderItemResponseDto dto = new OrderItemResponseDto();
+        dto.setId(this.id);
+        dto.setProductId(this.productId);
+        dto.setQuantity(this.quantity);
+        dto.setPrice(this.price);
+        return dto;
+    }
 }

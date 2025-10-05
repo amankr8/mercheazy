@@ -55,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
 
         Order savedOrder = orderRepository.save(order);
 
-        orderProducer.publishOrder(savedOrder);
+        orderProducer.publishOrder(savedOrder.toDto());
 
         return savedOrder;
     }

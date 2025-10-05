@@ -53,10 +53,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProductStock(Long productId, Integer stock) {
+    public Product updateProductStock(Long productId, Integer changeInStock) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found with id: " + productId));
-        product.setStock(stock);
+        int newStock = product.getStock() + changeInStock;
+        product.setStock(newStock);
         return productRepository.save(product);
     }
 

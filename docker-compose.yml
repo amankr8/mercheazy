@@ -76,6 +76,7 @@ services:
       - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
       - spring.datasource.username=postgres
       - spring.datasource.password=postgres
+      - spring.kafka.bootstrap-servers=kafka:9092
       - eureka.client.service-url.defaultZone=http://service-registry:8761/eureka/
 
   order-service:

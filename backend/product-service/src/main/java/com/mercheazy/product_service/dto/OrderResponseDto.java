@@ -1,6 +1,5 @@
-package com.mercheazy.order_service.dto;
+package com.mercheazy.product_service.dto;
 
-import com.mercheazy.order_service.model.Order;
 import lombok.Data;
 
 import java.util.Date;
@@ -11,7 +10,7 @@ public class OrderResponseDto {
     private Long id;
     private Long userId;
     private List<OrderItemResponseDto> orderItems;
-    private Order.OrderStatus status;
+    private String status;
     private Date createDate;
     private Date updateDate;
 }

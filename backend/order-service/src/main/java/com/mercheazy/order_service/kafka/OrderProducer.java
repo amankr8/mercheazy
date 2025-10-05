@@ -1,7 +1,7 @@
 package com.mercheazy.order_service.kafka;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mercheazy.order_service.model.Order;
+import com.mercheazy.order_service.dto.OrderResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,13 +19,13 @@ public class OrderProducer {
     @Value("${spring.kafka.topics.order}")
     private String orderTopic;
 
-    public void publishOrder(Order order) {
+    public void publishOrder(OrderResponseDto orderResponseDto) {
         try {
-            String message = objectMapper.writeValueAsString(order);
+            String message = objectMapper.writeValueAsString(orderResponseDto);
             kafkaTemplate.send(orderTopic, message);
             log.info("Sent order event to Kafka: {}", message);
         } catch (Exception e) {
-            log.error("Failed to send order event: {}", order, e);
+            log.error("Failed to send order event: {}", orderResponseDto, e);
         }
     }
 }

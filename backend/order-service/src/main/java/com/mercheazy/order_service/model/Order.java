@@ -1,6 +1,7 @@
 package com.mercheazy.order_service.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.mercheazy.order_service.dto.OrderResponseDto;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -40,5 +41,16 @@ public class Order {
 
     public enum OrderStatus {
         PLACED, CREATED, SHIPPED, DELIVERED, CANCELLED
+    }
+
+    public OrderResponseDto toDto() {
+        OrderResponseDto dto = new OrderResponseDto();
+        dto.setId(this.id);
+        dto.setUserId(this.userId);
+        dto.setOrderItems(orderItems.stream().map(OrderItem::toDto).toList());
+        dto.setStatus(this.status);
+        dto.setCreateDate(this.createDate);
+        dto.setUpdateDate(this.updateDate);
+        return dto;
     }
 }
