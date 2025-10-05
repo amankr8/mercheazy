@@ -16,7 +16,7 @@ public class OrderProducer {
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final ObjectMapper objectMapper;
 
-    @Value("${kafka.topics.order}")
+    @Value("${spring.kafka.topics.order}")
     private String orderTopic;
 
     public void publishOrder(Order order) {
