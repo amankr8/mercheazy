@@ -48,7 +48,6 @@ public class OrderServiceImpl implements OrderService {
                 orderItem.setPrice(product.getPrice());
                 orderItem.setOrder(order);
                 order.getOrderItems().add(orderItem);
-                productInterface.updateProductStock(item.getProductId(), product.getStock() - item.getQuantity());
             } else {
                 throw new ResourceNotFoundException("Product not available or insufficient stock for product ID: " + item.getProductId());
             }
