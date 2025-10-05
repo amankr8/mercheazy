@@ -128,9 +128,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=mercheazy
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mercheazy
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
