@@ -74,7 +74,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public Boolean isTokenValid(String token) {
+    public boolean isTokenValid(String token) {
         try {
             extractAllClaims(token);
         } catch (Exception e) {

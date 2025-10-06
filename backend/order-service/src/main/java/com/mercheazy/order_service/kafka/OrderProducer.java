@@ -19,13 +19,13 @@ public class OrderProducer {
     @Value("${spring.kafka.topics.order}")
     private String orderTopic;
 
-    public void publishOrder(OrderResponseDto orderResponseDto) {
+    public void publishOrder(Object orderEvent) {
         try {
-            String message = objectMapper.writeValueAsString(orderResponseDto);
+            String message = objectMapper.writeValueAsString(orderEvent);
             kafkaTemplate.send(orderTopic, message);
             log.info("Sent order event to Kafka: {}", message);
         } catch (Exception e) {
-            log.error("Failed to send order event: {}", orderResponseDto, e);
+            log.error("Failed to send order event: {}", orderEvent, e);
         }
     }
 }

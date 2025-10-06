@@ -1,7 +1,7 @@
 package com.mercheazy.auth_service.service.impl;
 
 import com.mercheazy.auth_service.dto.UserRequestDto;
-import com.mercheazy.auth_service.feign.UserInterface;
+import com.mercheazy.auth_service.kafka.AuthProducer;
 import com.mercheazy.auth_service.model.AuthUser;
 import com.mercheazy.auth_service.dto.LoginRequestDto;
 import com.mercheazy.auth_service.dto.SignupRequestDto;
@@ -9,7 +9,6 @@ import com.mercheazy.auth_service.repository.AuthUserRepository;
 import com.mercheazy.auth_service.service.AuthService;
 import com.mercheazy.auth_service.service.JwtService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,7 +24,7 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
-    private final UserInterface userInterface;
+    private final AuthProducer authProducer;
 
     @Override
     public AuthUser signup(SignupRequestDto signupRequestDto) {
@@ -36,10 +35,8 @@ public class AuthServiceImpl implements AuthService {
         UserRequestDto userRequestDto = UserRequestDto.builder()
                 .email(signupRequestDto.getEmail())
                 .build();
-        ResponseEntity<?> userResponse = userInterface.createUser(userRequestDto);
-        if (!userResponse.getStatusCode().is2xxSuccessful() || userResponse.getBody() == null) {
-            throw new RuntimeException("Failed to create user in user service.");
-        }
+
+        authProducer.publishAuthEvent(userRequestDto);
 
         AuthUser newUser = AuthUser.builder()
                 .username(signupRequestDto.getEmail())
