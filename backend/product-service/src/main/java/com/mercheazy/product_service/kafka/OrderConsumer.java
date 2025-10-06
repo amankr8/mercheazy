@@ -19,9 +19,9 @@ public class OrderConsumer {
     @KafkaListener(topics = "${spring.kafka.topics.order}", groupId = "product-service-group")
     public void consumeOrderEvent(String message) {
         try {
-            OrderResponseDto orderResponseDto = objectMapper.readValue(message, OrderResponseDto.class);
-            log.info("Received order event: {}", orderResponseDto);
+            log.info("Received order event: {}", message);
 
+            OrderResponseDto orderResponseDto = objectMapper.readValue(message, OrderResponseDto.class);
             for (var item : orderResponseDto.getOrderItems()) {
                 productService.updateProductStock(item.getProductId(), -item.getQuantity());
             }
