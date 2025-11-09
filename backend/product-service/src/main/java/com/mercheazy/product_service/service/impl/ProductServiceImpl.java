@@ -5,6 +5,9 @@ import com.mercheazy.product_service.entity.ProductRequestDto;
 import com.mercheazy.product_service.repository.ProductRepository;
 import com.mercheazy.product_service.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +18,13 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
 
+    @Cacheable(value = "products")
     @Override
     public List<Product> getProducts() {
         return productRepository.findAll();
     }
 
+    @Cacheable(value = "products", key = "#id")
     @Override
     public Product getProductById(Long id) {
         return productRepository.findById(id).orElse(null);
@@ -30,6 +35,7 @@ public class ProductServiceImpl implements ProductService {
         return List.of();
     }
 
+    @CachePut(value = "products", key = "#result.id")
     @Override
     public Product createProduct(ProductRequestDto productRequestDto) {
         Product product = new Product();
@@ -40,6 +46,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.save(product);
     }
 
+    @CachePut(value = "products", key = "#result.id")
     @Override
     public Product updateProduct(Long id, ProductRequestDto productRequestDto) {
         Product product = productRepository.findById(id)
@@ -52,6 +59,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.save(product);
     }
 
+    @CachePut(value = "products", key = "#result.id")
     @Override
     public Product updateProductStock(Long productId, Integer changeInStock) {
         Product product = productRepository.findById(productId)
@@ -61,11 +69,13 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.save(product);
     }
 
+    @CacheEvict(value = "products", key = "#id")
     @Override
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
 
+    @CacheEvict(value = "products", allEntries = true)
     @Override
     public void deleteAllProducts() {
         productRepository.deleteAll();
