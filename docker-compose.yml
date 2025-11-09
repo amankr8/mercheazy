@@ -37,8 +37,9 @@ services:
     ports:
       - "8081:8081"
     depends_on:
-      - service-registry
       - postgres-db
+      - service-registry
+      - kafka
     environment:
       - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
       - spring.datasource.username=postgres
@@ -53,8 +54,9 @@ services:
     ports:
       - "8082:8082"
     depends_on:
-      - service-registry
       - postgres-db
+      - service-registry
+      - kafka
     environment:
       - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
       - spring.datasource.username=postgres
@@ -68,8 +70,9 @@ services:
     ports:
       - "8083:8083"
     depends_on:
-      - service-registry
       - postgres-db
+      - service-registry
+      - kafka
     environment:
       - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
       - spring.datasource.username=postgres
@@ -82,8 +85,9 @@ services:
     ports:
       - "8084:8084"
     depends_on:
-      - service-registry
       - postgres-db
+      - service-registry
+      - kafka
     environment:
       - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
       - spring.datasource.username=postgres
@@ -97,8 +101,9 @@ services:
     ports:
       - "8085:8085"
     depends_on:
-      - service-registry
       - postgres-db
+      - service-registry
+      - kafka
     environment:
       - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
       - spring.datasource.username=postgres
@@ -112,8 +117,9 @@ services:
     ports:
       - "8086:8086"
     depends_on:
-      - service-registry
       - postgres-db
+      - service-registry
+      - kafka
     environment:
       - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
       - spring.datasource.username=postgres
@@ -126,8 +132,9 @@ services:
     ports:
       - "8087:8087"
     depends_on:
-      - service-registry
       - postgres-db
+      - service-registry
+      - kafka
     environment:
       - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
       - spring.datasource.username=postgres
@@ -168,8 +175,8 @@ services:
     container_name: elasticsearch
     environment:
       - discovery.type=single-node
-      - xpack.security.enabled=false   # disable security for local dev
-      - ES_JAVA_OPTS=-Xms1g -Xmx1g     # memory allocation
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
     ports:
       - "9200:9200"
     volumes:
