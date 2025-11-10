@@ -78,24 +78,6 @@ services:
     networks:
       - mercheazy-network
 
-  store-service:
-    container_name: store_service
-    build: ./backend/store-service
-    ports:
-      - "8083:8083"
-    depends_on:
-      - postgres-db
-      - service-registry
-      - api-gateway
-      - kafka
-    environment:
-      - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
-      - spring.datasource.username=postgres
-      - spring.datasource.password=postgres
-      - eureka.client.service-url.defaultZone=http://service-registry:8761/eureka/
-    networks:
-      - mercheazy-network
-
   product-service:
     container_name: product_service
     build: ./backend/product-service
@@ -135,42 +117,6 @@ services:
       - spring.datasource.username=postgres
       - spring.datasource.password=postgres
       - spring.kafka.bootstrap-servers=kafka:9092
-      - eureka.client.service-url.defaultZone=http://service-registry:8761/eureka/
-    networks:
-      - mercheazy-network
-
-  cart-service:
-    container_name: cart_service
-    build: ./backend/cart-service
-    ports:
-      - "8086:8086"
-    depends_on:
-      - postgres-db
-      - service-registry
-      - api-gateway
-      - kafka
-    environment:
-      - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
-      - spring.datasource.username=postgres
-      - spring.datasource.password=postgres
-      - eureka.client.service-url.defaultZone=http://service-registry:8761/eureka/
-    networks:
-      - mercheazy-network
-
-  cloudinary-service:
-    container_name: cloudinary_service
-    build: ./backend/cloudinary-service
-    ports:
-      - "8087:8087"
-    depends_on:
-      - postgres-db
-      - service-registry
-      - api-gateway
-      - kafka
-    environment:
-      - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
-      - spring.datasource.username=postgres
-      - spring.datasource.password=postgres
       - eureka.client.service-url.defaultZone=http://service-registry:8761/eureka/
     networks:
       - mercheazy-network

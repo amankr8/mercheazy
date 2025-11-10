@@ -15,11 +15,8 @@ jobs:
           - api-gateway
           - auth-service
           - user-service
-          - store-service
           - product-service
           - order-service
-          - cart-service
-          - cloudinary-service
 
     steps:
       - name: Checkout code
