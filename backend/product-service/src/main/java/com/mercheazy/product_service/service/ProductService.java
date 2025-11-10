@@ -1,7 +1,7 @@
 package com.mercheazy.product_service.service;
 
 import com.mercheazy.product_service.entity.Product;
-import com.mercheazy.product_service.entity.ProductRequestDto;
+import com.mercheazy.product_service.dto.ProductRequestDto;
 
 import java.util.List;
 

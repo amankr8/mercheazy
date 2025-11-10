@@ -4,6 +4,8 @@ services:
     build: ./frontend
     ports:
       - "4200:80"
+    networks:
+      - mercheazy-network
 
   postgres-db:
     image: 'postgres:17'
@@ -14,12 +16,16 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: mercheazy
+    networks:
+      - mercheazy-network
 
   service-registry:
     container_name: service_registry
     build: ./backend/service-registry
     ports:
       - "8761:8761"
+    networks:
+      - mercheazy-network
 
   api-gateway:
     container_name: api_gateway
@@ -30,6 +36,8 @@ services:
       - service-registry
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
+    networks:
+      - mercheazy-network
 
   auth-service:
     container_name: auth_service
@@ -47,6 +55,8 @@ services:
       - spring.kafka.bootstrap-servers=kafka:9092
       - spring.security.jwt.secret=${JWT_SECRET}
       - eureka.client.service-url.defaultZone=http://service-registry:8761/eureka/
+    networks:
+      - mercheazy-network
 
   user-service:
     container_name: user_service
@@ -63,6 +73,8 @@ services:
       - spring.datasource.password=postgres
       - spring.kafka.bootstrap-servers=kafka:9092
       - eureka.client.service-url.defaultZone=http://service-registry:8761/eureka/
+    networks:
+      - mercheazy-network
 
   store-service:
     container_name: store_service
@@ -78,6 +90,8 @@ services:
       - spring.datasource.username=postgres
       - spring.datasource.password=postgres
       - eureka.client.service-url.defaultZone=http://service-registry:8761/eureka/
+    networks:
+      - mercheazy-network
 
   product-service:
     container_name: product_service
@@ -87,13 +101,17 @@ services:
     depends_on:
       - postgres-db
       - service-registry
+      - elasticsearch
       - kafka
     environment:
       - spring.datasource.url=jdbc:postgresql://postgres-db:5432/mercheazy
       - spring.datasource.username=postgres
       - spring.datasource.password=postgres
+      - spring.jpa.properties.hibernate.search.backend.hosts=elasticsearch:9200
       - spring.kafka.bootstrap-servers=kafka:9092
       - eureka.client.service-url.defaultZone=http://service-registry:8761/eureka/
+    networks:
+      - mercheazy-network
 
   order-service:
     container_name: order_service
@@ -110,6 +128,8 @@ services:
       - spring.datasource.password=postgres
       - spring.kafka.bootstrap-servers=kafka:9092
       - eureka.client.service-url.defaultZone=http://service-registry:8761/eureka/
+    networks:
+      - mercheazy-network
 
   cart-service:
     container_name: cart_service
@@ -125,6 +145,8 @@ services:
       - spring.datasource.username=postgres
       - spring.datasource.password=postgres
       - eureka.client.service-url.defaultZone=http://service-registry:8761/eureka/
+    networks:
+      - mercheazy-network
 
   cloudinary-service:
     container_name: cloudinary_service
@@ -140,12 +162,16 @@ services:
       - spring.datasource.username=postgres
       - spring.datasource.password=postgres
       - eureka.client.service-url.defaultZone=http://service-registry:8761/eureka/
+    networks:
+      - mercheazy-network
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
     container_name: zookeeper_service
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
+    networks:
+      - mercheazy-network
 
   kafka:
     image: confluentinc/cp-kafka:7.5.0
@@ -159,6 +185,8 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - mercheazy-network
 
   redis:
     image: redis:latest
@@ -169,6 +197,8 @@ services:
       - redis_data:/data
     command: ["redis-server", "--appendonly", "yes"]
     restart: always
+    networks:
+      - mercheazy-network
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.15.2
@@ -181,7 +211,13 @@ services:
       - "9200:9200"
     volumes:
       - es_data:/usr/share/elasticsearch/data
+    networks:
+      - mercheazy-network
 
 volumes:
   redis_data:
   es_data:
+
+networks:
+  mercheazy-network:
+    driver: bridge

@@ -1,10 +1,14 @@
 package com.mercheazy.product_service.service.impl;
 
 import com.mercheazy.product_service.entity.Product;
-import com.mercheazy.product_service.entity.ProductRequestDto;
+import com.mercheazy.product_service.dto.ProductRequestDto;
 import com.mercheazy.product_service.repository.ProductRepository;
 import com.mercheazy.product_service.service.ProductService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.search.mapper.orm.Search;
+import org.hibernate.search.mapper.orm.session.SearchSession;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -17,6 +21,9 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+
+    @PersistenceContext
+    private final EntityManager entityManager;
 
     @Cacheable(value = "products")
     @Override
@@ -32,7 +39,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> searchProducts(String query) {
-        return List.of();
+        SearchSession searchSession = Search.session(entityManager);
+        return searchSession.search(Product.class)
+                .where(f -> f.wildcard()
+                        .fields("name", "description")
+                        .matching("*" + query.toLowerCase() + "*")
+                )
+                .fetchHits(20);
     }
 
     @CachePut(value = "products", key = "#result.id")

@@ -1,15 +1,19 @@
 package com.mercheazy.product_service.entity;
 
+import com.mercheazy.product_service.dto.ProductResponseDto;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 
 import java.util.Date;
 
 @Data
 @Entity
 @Table(name = "merch_product")
+@Indexed(index = "idx_merch_product")
 public class Product {
 
     @Id
@@ -17,9 +21,11 @@ public class Product {
     @Column(name = "mp_id")
     private Long id;
 
+    @FullTextField
     @Column(name = "mp_name")
     private String name;
 
+    @FullTextField
     @Column(name = "mp_description")
     private String description;
 

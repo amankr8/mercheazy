@@ -1,6 +1,6 @@
 package com.mercheazy.product_service.controller;
 
-import com.mercheazy.product_service.entity.ProductRequestDto;
+import com.mercheazy.product_service.dto.ProductRequestDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

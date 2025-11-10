@@ -14,10 +14,17 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+    show-sql: true
     properties:
       hibernate:
         format_sql: true
-    show-sql: true
+        search:
+          backend:
+            type: elasticsearch
+            hosts: http://localhost:9200
+            protocol: http
+          schema_management:
+            strategy: create-or-update
 
   data:
     redis:

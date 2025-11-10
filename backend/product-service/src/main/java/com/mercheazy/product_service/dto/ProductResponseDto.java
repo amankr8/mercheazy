@@ -1,4 +1,4 @@
-package com.mercheazy.product_service.entity;
+package com.mercheazy.product_service.dto;
 
 import lombok.Data;
 
