@@ -9,8 +9,6 @@ public interface OrderService {
 
     Order placeOrder(OrderRequestDto orderRequestDto);
 
-    Order updateOrder(Long orderId, OrderRequestDto orderRequestDto);
-
     Order changeOrderStatus(Long orderId, String status);
 
     Order getOrderById(Long orderId);

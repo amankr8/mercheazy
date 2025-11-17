@@ -61,22 +61,23 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order updateOrder(Long orderId, OrderRequestDto orderRequestDto) {
-        return null;
-    }
-
-    @Override
     public Order changeOrderStatus(Long orderId, String status) {
         return null;
     }
 
     @Override
     public Order getOrderById(Long orderId) {
-        return null;
+        return orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found with ID: " + orderId));
     }
 
     @Override
     public List<Order> getOrdersByUser(Long userId) {
-        return List.of();
+        ResponseEntity<AppUser> userResponse = userInterface.getUserByEmail(AuthUtil.getUserContext());
+        if (!userResponse.getStatusCode().is2xxSuccessful() || userResponse.getBody() == null) {
+            throw new ResourceNotFoundException("User could not be found or is not logged in.");
+        }
+
+        return orderRepository.findByUserId(userResponse.getBody().getId());
     }
 }

@@ -10,9 +10,6 @@ public interface OrderController {
     @PostMapping
     ResponseEntity<?> placeOrder(@RequestBody OrderRequestDto orderRequestDto);
 
-    @PutMapping("/{orderId}")
-    ResponseEntity<?> updateOrder(@PathVariable Long orderId, @RequestBody OrderRequestDto orderRequestDto);
-
     @PutMapping("/{orderId}/status")
     ResponseEntity<?> changeOrderStatus(@PathVariable Long orderId, @RequestParam String status);
 
