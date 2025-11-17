@@ -61,8 +61,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order changeOrderStatus(Long orderId, String status) {
-        return null;
+    public Order updateOrderStatus(Long orderId, String status) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found with ID: " + orderId));
+
+        try {
+            Order.OrderStatus newStatus = Order.OrderStatus.valueOf(status.toUpperCase());
+            order.setStatus(newStatus);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid order status: " + status);
+        }
+
+        return orderRepository.save(order);
     }
 
     @Override

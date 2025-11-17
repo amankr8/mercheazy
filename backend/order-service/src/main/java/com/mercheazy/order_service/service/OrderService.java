@@ -9,7 +9,7 @@ public interface OrderService {
 
     Order placeOrder(OrderRequestDto orderRequestDto);
 
-    Order changeOrderStatus(Long orderId, String status);
+    Order updateOrderStatus(Long orderId, String status);
 
     Order getOrderById(Long orderId);
 

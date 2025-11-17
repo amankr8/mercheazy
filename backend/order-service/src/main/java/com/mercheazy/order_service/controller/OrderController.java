@@ -11,7 +11,7 @@ public interface OrderController {
     ResponseEntity<?> placeOrder(@RequestBody OrderRequestDto orderRequestDto);
 
     @PutMapping("/{orderId}/status")
-    ResponseEntity<?> changeOrderStatus(@PathVariable Long orderId, @RequestParam String status);
+    ResponseEntity<?> updateOrderStatus(@PathVariable Long orderId, @RequestParam String status);
 
     @GetMapping("/{orderId}")
     ResponseEntity<?> getOrderById(@PathVariable Long orderId);

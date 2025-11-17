@@ -2,9 +2,11 @@ package com.mercheazy.order_service.controller.impl;
 
 import com.mercheazy.order_service.controller.OrderController;
 import com.mercheazy.order_service.dto.OrderRequestDto;
+import com.mercheazy.order_service.model.Order;
 import com.mercheazy.order_service.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderControllerImpl implements OrderController {
 
     private final OrderService orderService;
+    private final SimpMessagingTemplate messagingTemplate;
 
     @Override
     public ResponseEntity<?> placeOrder(OrderRequestDto orderRequestDto) {
@@ -19,8 +22,10 @@ public class OrderControllerImpl implements OrderController {
     }
 
     @Override
-    public ResponseEntity<?> changeOrderStatus(Long orderId, String status) {
-        return ResponseEntity.ok(orderService.changeOrderStatus(orderId, status));
+    public ResponseEntity<?> updateOrderStatus(Long orderId, String status) {
+        Order updatedOrder = orderService.updateOrderStatus(orderId, status);
+        messagingTemplate.convertAndSend("/topic/order-status/" + updatedOrder.getUserId(), updatedOrder);
+        return ResponseEntity.ok(updatedOrder);
     }
 
     @Override
